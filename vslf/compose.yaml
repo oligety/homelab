@@ -1,0 +1,20 @@
+services:
+  vslf-backend:
+    image: ghcr.io/oligety/vslf-backend:latest
+    container_name: vslf-backend
+    restart: unless-stopped
+    networks:
+      - caddy_net
+
+  vslf-frontend:
+    image: ghcr.io/oligety/vslf-frontend:latest
+    container_name: vslf-frontend
+    restart: unless-stopped
+    depends_on:
+      - vslf-backend
+    networks:
+      - caddy_net
+
+networks:
+  caddy_net:
+    external: true
