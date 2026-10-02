@@ -8,9 +8,9 @@
         resolvers 1.1.1.1
     }
 
-    @portainer host portainer.oligety.com
-    handle @portainer {
-        reverse_proxy portainer:9000
+    @arcane host arcane.oligety.com
+    handle @arcane {
+        reverse_proxy arcane:3552
     }
 
     @pihole host pihole.oligety.com
@@ -30,42 +30,14 @@
         }
     }
 
-    @uptime host uptime.oligety.com
-    handle @uptime {
-        reverse_proxy uptime-kuma:3001
-    }
-
-    @netdata host netdata.oligety.com
-    handle @netdata {
-        basicauth {
-            oligety $2a$14$M6Y6SFGUGv4Jj7ecv8hR3.NIpMxerOeoJsZzGC7uhVkioRmqGtHNi
-        }
-        reverse_proxy netdata:19999
-    }
-
     @finance host ghostfolio.oligety.com
     handle @finance {
         reverse_proxy ghostfolio:3333
     }
 
-    @firefly host firefly.oligety.com
-    handle @firefly {
-        reverse_proxy firefly_app:8080
-    }
-
-    @firefly-import host firefly-import.oligety.com
-    handle @firefly-import {
-        reverse_proxy firefly_importer:8080
-    }
-
     @ha host ha.oligety.com
     handle @ha {
         reverse_proxy 192.168.68.61:8123
-    }
-
-    @mealie host mealie.oligety.com
-    handle @mealie {
-        reverse_proxy mealie:9000
     }
 
     @beszel host beszel.oligety.com
@@ -78,14 +50,6 @@
         reverse_proxy open-webui:8080
     }
 
-    @homepage host homepage.oligety.com
-    handle @homepage {
-        basicauth {
-            oligety $2a$14$x8YfJ7eyGDYTpBXU1zo9POugPr6s84Runx6XSXQ3BG1VsafJlPnW2
-        }
-        reverse_proxy homepage:3000
-    }
-
     # Drop anything else
     handle {
         abort
@@ -96,8 +60,8 @@
 # INTERNAL ACCESS (.internal)
 # ==========================================
 
-portainer.oligety.internal {
-    reverse_proxy portainer:9000
+arcane.oligety.internal {
+    reverse_proxy arcane:3552
     tls internal
 }
 
@@ -117,38 +81,13 @@ vslf.oligety.internal {
     tls internal
 }
 
-uptime.oligety.internal {
-    reverse_proxy uptime-kuma:3001
-    tls internal
-}
-
-netdata.oligety.internal {
-    reverse_proxy netdata:19999
-    tls internal
-}
-
 ghostfolio.oligety.internal {
     reverse_proxy ghostfolio:3333
     tls internal
 }
 
-firefly.oligety.internal {
-    reverse_proxy firefly_app:8080
-    tls internal
-}
-
-firefly-import.oligety.internal {
-    reverse_proxy firefly_importer:8080
-    tls internal
-}
-
 ha.oligety.internal {
     reverse_proxy 192.168.68.61:8123
-    tls internal
-}
-
-mealie.oligety.internal {
-    reverse_proxy mealie:9000
     tls internal
 }
 
@@ -159,10 +98,5 @@ beszel.oligety.internal {
 
 oliai.oligety.internal {
     reverse_proxy open-webui:8080
-    tls internal
-}
-
-homepage.oligety.internal {
-    reverse_proxy homepage:3000
     tls internal
 }

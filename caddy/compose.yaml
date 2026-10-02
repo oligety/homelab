@@ -16,14 +16,21 @@ services:
     networks:
       - caddy_net
 
-  cloudflare-ddns:
-    image: oznu/cloudflare-ddns:latest
-    container_name: cloudflare-ddns
+  ddclient:
+    image: lscr.io/linuxserver/ddclient:latest
+    container_name: ddclient
     restart: unless-stopped
     environment:
-      - API_KEY=${CLOUDFLARE_API_TOKEN}
-      - ZONE=oligety.com
-      - PROXIED=false
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Sydney
+      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
+    volumes:
+      - /data/ddclient/config:/config
+      # Inject the repo-tracked configuration file directly
+      - ./config/ddclient.conf:/config/ddclient.conf:ro
+    networks:
+      - caddy_net
 
 networks:
   caddy_net:
