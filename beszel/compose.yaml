@@ -1,0 +1,30 @@
+services:
+  beszel:
+    image: henrygd/beszel:0.20
+    container_name: beszel
+    restart: unless-stopped
+    networks:
+      - caddy_net
+    volumes:
+      - /data/beszel_data:/beszel_data
+    environment:
+      - TZ=Australia/Sydney
+      - APP_URL=https://beszel.oligety.com
+
+  beszel-agent:
+    image: henrygd/beszel-agent:0.20
+    container_name: beszel-agent
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /data/beszel_agent_data:/var/lib/beszel-agent
+    environment:
+      - TZ=Australia/Sydney
+      - KEY=${BESZEL_KEY}
+      - TOKEN=${BESZEL_TOKEN}
+      - HUB_URL=http://192.168.68.61:8090
+
+networks:
+  caddy_net:
+    external: true
