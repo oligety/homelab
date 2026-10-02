@@ -27,8 +27,7 @@ services:
       - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
     volumes:
       - /data/ddclient/config:/config
-      # Inject the repo-tracked configuration file directly
-      - ./config/ddclient.conf:/config/ddclient.conf:ro
+      - ./config/ddclient.conf:/config/ddclient.conf
     networks:
       - caddy_net
 
