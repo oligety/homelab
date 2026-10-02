@@ -1,0 +1,29 @@
+services:
+  ollama:
+    image: ollama/ollama:0.35.0
+    container_name: ollama
+    restart: unless-stopped
+    networks:
+      - ai_internal
+    volumes:
+      - /data/ollama:/root/.ollama
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:v0.11.4
+    container_name: open-webui
+    restart: unless-stopped
+    networks:
+      - caddy_net
+      - ai_internal
+    volumes:
+      - /data/open-webui:/app/backend/data
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - TZ=Australia/Sydney
+      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
+
+networks:
+  caddy_net:
+    external: true
+  ai_internal:
+    external: false
