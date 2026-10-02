@@ -13,6 +13,7 @@ services:
       - PUID=1000
       - PGID=1000
       - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - PROJECTS_DIRECTORY=/opt/homelab
     cgroup: host
     restart: unless-stopped
     networks:
