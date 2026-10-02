@@ -1,0 +1,168 @@
+# ==========================================
+# EXTERNAL ACCESS (Cloudflare Wildcard)
+# ==========================================
+
+*.oligety.com {
+    tls {
+        dns cloudflare {$CLOUDFLARE_API_TOKEN}
+        resolvers 1.1.1.1
+    }
+
+    @portainer host portainer.oligety.com
+    handle @portainer {
+        reverse_proxy portainer:9000
+    }
+
+    @pihole host pihole.oligety.com
+    handle @pihole {
+        redir / /admin/
+        reverse_proxy pihole:80
+    }
+
+    @vslf host vslf.oligety.com
+    handle @vslf {
+        handle /api/* {
+            uri strip_prefix /api
+            reverse_proxy vslf-backend:3000
+        }
+        handle {
+            reverse_proxy vslf-frontend:80
+        }
+    }
+
+    @uptime host uptime.oligety.com
+    handle @uptime {
+        reverse_proxy uptime-kuma:3001
+    }
+
+    @netdata host netdata.oligety.com
+    handle @netdata {
+        basicauth {
+            oligety $2a$14$M6Y6SFGUGv4Jj7ecv8hR3.NIpMxerOeoJsZzGC7uhVkioRmqGtHNi
+        }
+        reverse_proxy netdata:19999
+    }
+
+    @finance host ghostfolio.oligety.com
+    handle @finance {
+        reverse_proxy ghostfolio:3333
+    }
+
+    @firefly host firefly.oligety.com
+    handle @firefly {
+        reverse_proxy firefly_app:8080
+    }
+
+    @firefly-import host firefly-import.oligety.com
+    handle @firefly-import {
+        reverse_proxy firefly_importer:8080
+    }
+
+    @ha host ha.oligety.com
+    handle @ha {
+        reverse_proxy 192.168.68.61:8123
+    }
+
+    @mealie host mealie.oligety.com
+    handle @mealie {
+        reverse_proxy mealie:9000
+    }
+
+    @beszel host beszel.oligety.com
+    handle @beszel {
+        reverse_proxy beszel:8090
+    }
+
+    @oliai host oliai.oligety.com
+    handle @oliai {
+        reverse_proxy open-webui:8080
+    }
+
+    @homepage host homepage.oligety.com
+    handle @homepage {
+        basicauth {
+            oligety $2a$14$x8YfJ7eyGDYTpBXU1zo9POugPr6s84Runx6XSXQ3BG1VsafJlPnW2
+        }
+        reverse_proxy homepage:3000
+    }
+
+    # Drop anything else
+    handle {
+        abort
+    }
+}
+
+# ==========================================
+# INTERNAL ACCESS (.internal)
+# ==========================================
+
+portainer.oligety.internal {
+    reverse_proxy portainer:9000
+    tls internal
+}
+
+pihole.oligety.internal {
+    redir / /admin/
+    reverse_proxy pihole:80
+    tls internal
+}
+
+vslf.oligety.internal {
+    handle /api* {
+        reverse_proxy vslf-backend:3000
+    }
+    handle {
+        reverse_proxy vslf-frontend:80
+    }
+    tls internal
+}
+
+uptime.oligety.internal {
+    reverse_proxy uptime-kuma:3001
+    tls internal
+}
+
+netdata.oligety.internal {
+    reverse_proxy netdata:19999
+    tls internal
+}
+
+ghostfolio.oligety.internal {
+    reverse_proxy ghostfolio:3333
+    tls internal
+}
+
+firefly.oligety.internal {
+    reverse_proxy firefly_app:8080
+    tls internal
+}
+
+firefly-import.oligety.internal {
+    reverse_proxy firefly_importer:8080
+    tls internal
+}
+
+ha.oligety.internal {
+    reverse_proxy 192.168.68.61:8123
+    tls internal
+}
+
+mealie.oligety.internal {
+    reverse_proxy mealie:9000
+    tls internal
+}
+
+beszel.oligety.internal {
+    reverse_proxy beszel:8090
+    tls internal
+}
+
+oliai.oligety.internal {
+    reverse_proxy open-webui:8080
+    tls internal
+}
+
+homepage.oligety.internal {
+    reverse_proxy homepage:3000
+    tls internal
+}
