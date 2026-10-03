@@ -3,57 +3,57 @@
 # ==========================================
 
 *.oligety.com {
-    tls {
-        dns cloudflare {$CLOUDFLARE_API_TOKEN}
-        resolvers 1.1.1.1
-    }
+	tls {
+		dns cloudflare {$CLOUDFLARE_API_TOKEN}
+		resolvers 1.1.1.1
+	}
 
-    @arcane host arcane.oligety.com
-    handle @arcane {
-        reverse_proxy arcane:3552
-    }
+	@arcane host arcane.oligety.com
+	handle @arcane {
+		reverse_proxy arcane:3552
+	}
 
-    @pihole host pihole.oligety.com
-    handle @pihole {
-        redir / /admin/
-        reverse_proxy pihole:80
-    }
+	@pihole host pihole.oligety.com
+	handle @pihole {
+		redir / /admin/
+		reverse_proxy pihole:80
+	}
 
-    @vslf host vslf.oligety.com
-    handle @vslf {
-        handle /api/* {
-            uri strip_prefix /api
-            reverse_proxy vslf-backend:3000
-        }
-        handle {
-            reverse_proxy vslf-frontend:80
-        }
-    }
+	@vslf host vslf.oligety.com
+	handle @vslf {
+		handle /api/* {
+			uri strip_prefix /api
+			reverse_proxy vslf-backend:3000
+		}
+		handle {
+			reverse_proxy vslf-frontend:80
+		}
+	}
 
-    @finance host ghostfolio.oligety.com
-    handle @finance {
-        reverse_proxy ghostfolio:3333
-    }
+	@finance host ghostfolio.oligety.com
+	handle @finance {
+		reverse_proxy ghostfolio:3333
+	}
 
-    @ha host ha.oligety.com
-    handle @ha {
-        reverse_proxy 192.168.68.61:8123
-    }
+	@ha host ha.oligety.com
+	handle @ha {
+		reverse_proxy 192.168.68.61:8123
+	}
 
-    @beszel host beszel.oligety.com
-    handle @beszel {
-        reverse_proxy beszel:8090
-    }
+	@beszel host beszel.oligety.com
+	handle @beszel {
+		reverse_proxy beszel:8090
+	}
 
-    @oliai host oliai.oligety.com
-    handle @oliai {
-        reverse_proxy open-webui:8080
-    }
+	@oliai host oliai.oligety.com
+	handle @oliai {
+		reverse_proxy open-webui:8080
+	}
 
-    # Drop anything else
-    handle {
-        abort
-    }
+	# Drop anything else
+	handle {
+		abort
+	}
 }
 
 # ==========================================
@@ -61,42 +61,42 @@
 # ==========================================
 
 arcane.oligety.internal {
-    reverse_proxy arcane:3552
-    tls internal
+	reverse_proxy arcane:3552
+	tls internal
 }
 
 pihole.oligety.internal {
-    redir / /admin/
-    reverse_proxy pihole:80
-    tls internal
+	redir / /admin/
+	reverse_proxy pihole:80
+	tls internal
 }
 
 vslf.oligety.internal {
-    handle /api* {
-        reverse_proxy vslf-backend:3000
-    }
-    handle {
-        reverse_proxy vslf-frontend:80
-    }
-    tls internal
+	handle /api* {
+		reverse_proxy vslf-backend:3000
+	}
+	handle {
+		reverse_proxy vslf-frontend:80
+	}
+	tls internal
 }
 
 ghostfolio.oligety.internal {
-    reverse_proxy ghostfolio:3333
-    tls internal
+	reverse_proxy ghostfolio:3333
+	tls internal
 }
 
 ha.oligety.internal {
-    reverse_proxy 192.168.68.61:8123
-    tls internal
+	reverse_proxy 192.168.68.61:8123
+	tls internal
 }
 
 beszel.oligety.internal {
-    reverse_proxy beszel:8090
-    tls internal
+	reverse_proxy beszel:8090
+	tls internal
 }
 
 oliai.oligety.internal {
-    reverse_proxy open-webui:8080
-    tls internal
+	reverse_proxy open-webui:8080
+	tls internal
 }
