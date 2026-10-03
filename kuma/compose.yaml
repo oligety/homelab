@@ -1,0 +1,16 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:2
+    container_name: kuma
+    volumes:
+      - /data/uptime-kuma-data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - caddy_net
+    environment:
+      - TZ=Australia/Sydney
+    restart: unless-stopped
+
+networks:
+  caddy_net:
+    external: true

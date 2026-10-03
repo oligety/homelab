@@ -50,6 +50,11 @@
 		reverse_proxy open-webui:8080
 	}
 
+	@kuma host kuma.oligety.com
+	handle @kuma {
+		reverse_proxy kuma:3001
+	}
+
 	# Drop anything else
 	handle {
 		abort
@@ -98,5 +103,10 @@ beszel.oligety.internal {
 
 oliai.oligety.internal {
 	reverse_proxy open-webui:8080
+	tls internal
+}
+
+kuma.oligety.internal {
+	reverse_proxy kuma:3001
 	tls internal
 }
