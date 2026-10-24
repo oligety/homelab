@@ -55,6 +55,11 @@
 		reverse_proxy kuma:3001
 	}
 
+	@handyman host m5-handyman.oligety.com
+	handle @handyman {
+		reverse_proxy handyman:4321
+	}
+
 	# Drop anything else
 	handle {
 		abort
@@ -108,5 +113,10 @@ oliai.oligety.internal {
 
 kuma.oligety.internal {
 	reverse_proxy kuma:3001
+	tls internal
+}
+
+m5-handyman.oligety.internal {
+	reverse_proxy handyman:4321
 	tls internal
 }
