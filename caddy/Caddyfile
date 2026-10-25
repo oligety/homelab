@@ -55,7 +55,7 @@
 		reverse_proxy kuma:3001
 	}
 
-	@handyman host m5-handyman.oligety.com
+	@handyman host madap-construction.oligety.com
 	handle @handyman {
         basicauth {
     		admin {$M5_PASSWORD_HASH}
@@ -119,7 +119,7 @@ kuma.oligety.internal {
 	tls internal
 }
 
-m5-handyman.oligety.internal {
+madap-construction.oligety.internal {
 	reverse_proxy handyman:4321
 	tls internal
 }
