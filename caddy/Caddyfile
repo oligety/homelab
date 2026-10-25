@@ -58,7 +58,7 @@
 	@handyman host madap-construction.oligety.com
 	handle @handyman {
         basicauth {
-    		admin {$M5_PASSWORD_HASH}
+    		admin "$2a$14$Nu8Sp0MPYQ3rOgJpGwuLHeDmTsmCG9ja5EDVMtYpoVf9IXWqBM5U6"
     	}
     	reverse_proxy handyman:4321
     }
