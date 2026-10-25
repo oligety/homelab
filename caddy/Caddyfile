@@ -57,8 +57,11 @@
 
 	@handyman host m5-handyman.oligety.com
 	handle @handyman {
-		reverse_proxy handyman:4321
-	}
+        basicauth {
+    		admin {$M5_PASSWORD_HASH}
+    	}
+    	reverse_proxy handyman:4321
+    }
 
 	# Drop anything else
 	handle {
